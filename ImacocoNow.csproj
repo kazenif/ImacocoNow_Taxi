@@ -1,0 +1,974 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6B263165-BD4F-451D-B0AB-4FD63E8081D1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PCGPS</RootNamespace>
+    <AssemblyName>ImacocoNow</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>false</GenerateManifests>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ManifestCertificateThumbprint>72B5A9755BA1DA3F3E3536D1FB71BB70E2C2B0B4</ManifestCertificateThumbprint>
+    <ManifestKeyFile>GPS取得Post_TemporaryKey.pfx</ManifestKeyFile>
+    <SignManifests>false</SignManifests>
+    <ApplicationIcon>Resources\GPS-24_satellite-16.ico</ApplicationIcon>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EbiSoft.Library.PluginFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Plugin\EbiSoft.Library.PluginFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json.Net20, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Newtonsoft.Json.Net20.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BouyomiChanClient.cs" />
+    <Compile Include="ClientContext.cs" />
+    <Compile Include="ErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorForm.Designer.cs">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form5.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form5.Designer.cs">
+      <DependentUpon>Form5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImakokoPoint.cs" />
+    <Compile Include="LatestPoints.cs" />
+    <Compile Include="Manager\ImacocoNowManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Manager\TwitterManager.cs" />
+    <Compile Include="OAuth\OAuth.cs" />
+    <Compile Include="OAuth\TwitterOAuth.cs" />
+    <Compile Include="Plugin\ImacocoNowPlugin.cs" />
+    <Compile Include="Point.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PolicyFileServer.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form5.resx">
+      <DependentUpon>Form5.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SplashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashForm.Designer.cs">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnableGeoTaggingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EnableGeoTaggingDialog.Designer.cs">
+      <DependentUpon>EnableGeoTaggingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TcpServerPos.cs" />
+    <Compile Include="TcpServerSpeed.cs" />
+    <Compile Include="TcpServerTaxi.cs" />
+    <Compile Include="Util.cs" />
+    <Compile Include="xAuthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="xAuthForm.Designer.cs">
+      <DependentUpon>xAuthForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorForm.resx">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\dir-0.png" />
+    <EmbeddedResource Include="Resources\dir-1.png" />
+    <EmbeddedResource Include="Resources\dir-2.png" />
+    <EmbeddedResource Include="Resources\dir-3.png" />
+    <EmbeddedResource Include="Resources\dir-4.png" />
+    <EmbeddedResource Include="Resources\dir-5.png" />
+    <EmbeddedResource Include="Resources\dir-6.png" />
+    <EmbeddedResource Include="Resources\dir-7.png" />
+    <EmbeddedResource Include="Resources\dir-8.png" />
+    <EmbeddedResource Include="Resources\dir-9.png" />
+    <EmbeddedResource Include="Resources\dir-10.png" />
+    <EmbeddedResource Include="Resources\dir-11.png" />
+    <EmbeddedResource Include="Resources\dir-12.png" />
+    <EmbeddedResource Include="Resources\dir-13.png" />
+    <EmbeddedResource Include="Resources\dir-14.png" />
+    <EmbeddedResource Include="Resources\dir-15.png" />
+    <EmbeddedResource Include="Resources\dir-16.png" />
+    <EmbeddedResource Include="Resources\dir-17.png" />
+    <EmbeddedResource Include="Resources\dir-18.png" />
+    <EmbeddedResource Include="Resources\dir-19.png" />
+    <EmbeddedResource Include="Resources\dir-20.png" />
+    <EmbeddedResource Include="Resources\dir-21.png" />
+    <EmbeddedResource Include="Resources\dir-22.png" />
+    <EmbeddedResource Include="Resources\dir-23.png" />
+    <EmbeddedResource Include="Resources\dir-24.png" />
+    <EmbeddedResource Include="Resources\dir-25.png" />
+    <EmbeddedResource Include="Resources\dir-26.png" />
+    <EmbeddedResource Include="Resources\dir-27.png" />
+    <EmbeddedResource Include="Resources\dir-28.png" />
+    <EmbeddedResource Include="Resources\dir-29.png" />
+    <EmbeddedResource Include="Resources\dir-30.png" />
+    <EmbeddedResource Include="Resources\dir-31.png" />
+    <EmbeddedResource Include="Resources\dir-32.png" />
+    <EmbeddedResource Include="Resources\dir-33.png" />
+    <EmbeddedResource Include="Resources\dir-34.png" />
+    <EmbeddedResource Include="Resources\dir-35.png" />
+    <EmbeddedResource Include="Resources\dir-36.png" />
+    <EmbeddedResource Include="Resources\dir-37.png" />
+    <EmbeddedResource Include="Resources\dir-38.png" />
+    <EmbeddedResource Include="Resources\dir-39.png" />
+    <EmbeddedResource Include="Resources\dir-40.png" />
+    <EmbeddedResource Include="Resources\dir-41.png" />
+    <EmbeddedResource Include="Resources\dir-42.png" />
+    <EmbeddedResource Include="Resources\dir-43.png" />
+    <EmbeddedResource Include="Resources\dir-44.png" />
+    <EmbeddedResource Include="Resources\dir-45.png" />
+    <EmbeddedResource Include="Resources\dir-46.png" />
+    <EmbeddedResource Include="Resources\dir-47.png" />
+    <EmbeddedResource Include="Resources\dir-48.png" />
+    <EmbeddedResource Include="Resources\dir-49.png" />
+    <EmbeddedResource Include="Resources\dir-50.png" />
+    <EmbeddedResource Include="Resources\dir-51.png" />
+    <EmbeddedResource Include="Resources\dir-52.png" />
+    <EmbeddedResource Include="Resources\dir-53.png" />
+    <EmbeddedResource Include="Resources\dir-54.png" />
+    <EmbeddedResource Include="Resources\dir-55.png" />
+    <EmbeddedResource Include="Resources\dir-56.png" />
+    <EmbeddedResource Include="Resources\dir-57.png" />
+    <EmbeddedResource Include="Resources\dir-58.png" />
+    <EmbeddedResource Include="Resources\dir-59.png" />
+    <EmbeddedResource Include="Resources\dir-60.png" />
+    <EmbeddedResource Include="Resources\dir-61.png" />
+    <EmbeddedResource Include="Resources\dir-62.png" />
+    <EmbeddedResource Include="Resources\dir-63.png" />
+    <EmbeddedResource Include="Resources\dir-64.png" />
+    <EmbeddedResource Include="Resources\dir-65.png" />
+    <EmbeddedResource Include="Resources\dir-66.png" />
+    <EmbeddedResource Include="Resources\dir-67.png" />
+    <EmbeddedResource Include="Resources\dir-68.png" />
+    <EmbeddedResource Include="Resources\dir-69.png" />
+    <EmbeddedResource Include="Resources\dir-70.png" />
+    <EmbeddedResource Include="Resources\dir-71.png" />
+    <EmbeddedResource Include="Resources\dir-72.png" />
+    <EmbeddedResource Include="Resources\dir-73.png" />
+    <EmbeddedResource Include="Resources\dir-74.png" />
+    <EmbeddedResource Include="Resources\dir-75.png" />
+    <EmbeddedResource Include="Resources\dir-76.png" />
+    <EmbeddedResource Include="Resources\dir-77.png" />
+    <EmbeddedResource Include="Resources\dir-78.png" />
+    <EmbeddedResource Include="Resources\dir-79.png" />
+    <EmbeddedResource Include="Resources\dir-80.png" />
+    <EmbeddedResource Include="Resources\dir-81.png" />
+    <EmbeddedResource Include="Resources\dir-82.png" />
+    <EmbeddedResource Include="Resources\dir-83.png" />
+    <EmbeddedResource Include="Resources\dir-84.png" />
+    <EmbeddedResource Include="Resources\dir-85.png" />
+    <EmbeddedResource Include="Resources\dir-86.png" />
+    <EmbeddedResource Include="Resources\dir-87.png" />
+    <EmbeddedResource Include="Resources\dir-88.png" />
+    <EmbeddedResource Include="Resources\dir-89.png" />
+    <EmbeddedResource Include="Resources\dir-90.png" />
+    <EmbeddedResource Include="Resources\dir-91.png" />
+    <EmbeddedResource Include="Resources\dir-92.png" />
+    <EmbeddedResource Include="Resources\dir-93.png" />
+    <EmbeddedResource Include="Resources\dir-94.png" />
+    <EmbeddedResource Include="Resources\dir-95.png" />
+    <EmbeddedResource Include="Resources\dir-96.png" />
+    <EmbeddedResource Include="Resources\dir-97.png" />
+    <EmbeddedResource Include="Resources\dir-98.png" />
+    <EmbeddedResource Include="Resources\dir-99.png" />
+    <EmbeddedResource Include="Resources\dir-100.png" />
+    <EmbeddedResource Include="Resources\dir-101.png" />
+    <EmbeddedResource Include="Resources\dir-102.png" />
+    <EmbeddedResource Include="Resources\dir-103.png" />
+    <EmbeddedResource Include="Resources\dir-104.png" />
+    <EmbeddedResource Include="Resources\dir-105.png" />
+    <EmbeddedResource Include="Resources\dir-106.png" />
+    <EmbeddedResource Include="Resources\dir-107.png" />
+    <EmbeddedResource Include="Resources\dir-108.png" />
+    <EmbeddedResource Include="Resources\dir-109.png" />
+    <EmbeddedResource Include="Resources\dir-110.png" />
+    <EmbeddedResource Include="Resources\dir-111.png" />
+    <EmbeddedResource Include="Resources\dir-112.png" />
+    <EmbeddedResource Include="Resources\dir-113.png" />
+    <EmbeddedResource Include="Resources\dir-114.png" />
+    <EmbeddedResource Include="Resources\dir-115.png" />
+    <EmbeddedResource Include="Resources\dir-116.png" />
+    <EmbeddedResource Include="Resources\dir-117.png" />
+    <EmbeddedResource Include="Resources\dir-118.png" />
+    <EmbeddedResource Include="Resources\dir-119.png" />
+    <EmbeddedResource Include="Resources\dir-120.png" />
+    <EmbeddedResource Include="Resources\dir-121.png" />
+    <EmbeddedResource Include="Resources\dir-122.png" />
+    <EmbeddedResource Include="Resources\dir-123.png" />
+    <EmbeddedResource Include="Resources\dir-124.png" />
+    <EmbeddedResource Include="Resources\dir-125.png" />
+    <EmbeddedResource Include="Resources\dir-126.png" />
+    <EmbeddedResource Include="Resources\dir-127.png" />
+    <EmbeddedResource Include="Resources\dir-128.png" />
+    <EmbeddedResource Include="Resources\dir-129.png" />
+    <EmbeddedResource Include="Resources\dir-130.png" />
+    <EmbeddedResource Include="Resources\dir-131.png" />
+    <EmbeddedResource Include="Resources\dir-132.png" />
+    <EmbeddedResource Include="Resources\dir-133.png" />
+    <EmbeddedResource Include="Resources\dir-134.png" />
+    <EmbeddedResource Include="Resources\dir-135.png" />
+    <EmbeddedResource Include="Resources\dir-136.png" />
+    <EmbeddedResource Include="Resources\dir-137.png" />
+    <EmbeddedResource Include="Resources\dir-138.png" />
+    <EmbeddedResource Include="Resources\dir-139.png" />
+    <EmbeddedResource Include="Resources\dir-140.png" />
+    <EmbeddedResource Include="Resources\dir-141.png" />
+    <EmbeddedResource Include="Resources\dir-142.png" />
+    <EmbeddedResource Include="Resources\dir-143.png" />
+    <EmbeddedResource Include="Resources\dir-144.png" />
+    <EmbeddedResource Include="Resources\dir-145.png" />
+    <EmbeddedResource Include="Resources\dir-146.png" />
+    <EmbeddedResource Include="Resources\dir-147.png" />
+    <EmbeddedResource Include="Resources\dir-148.png" />
+    <EmbeddedResource Include="Resources\dir-149.png" />
+    <EmbeddedResource Include="Resources\dir-150.png" />
+    <EmbeddedResource Include="Resources\dir-151.png" />
+    <EmbeddedResource Include="Resources\dir-152.png" />
+    <EmbeddedResource Include="Resources\dir-153.png" />
+    <EmbeddedResource Include="Resources\dir-154.png" />
+    <EmbeddedResource Include="Resources\dir-155.png" />
+    <EmbeddedResource Include="Resources\dir-156.png" />
+    <EmbeddedResource Include="Resources\dir-157.png" />
+    <EmbeddedResource Include="Resources\dir-158.png" />
+    <EmbeddedResource Include="Resources\dir-159.png" />
+    <EmbeddedResource Include="Resources\dir-160.png" />
+    <EmbeddedResource Include="Resources\dir-161.png" />
+    <EmbeddedResource Include="Resources\dir-162.png" />
+    <EmbeddedResource Include="Resources\dir-163.png" />
+    <EmbeddedResource Include="Resources\dir-164.png" />
+    <EmbeddedResource Include="Resources\dir-165.png" />
+    <EmbeddedResource Include="Resources\dir-166.png" />
+    <EmbeddedResource Include="Resources\dir-167.png" />
+    <EmbeddedResource Include="Resources\dir-168.png" />
+    <EmbeddedResource Include="Resources\dir-169.png" />
+    <EmbeddedResource Include="Resources\dir-170.png" />
+    <EmbeddedResource Include="Resources\dir-171.png" />
+    <EmbeddedResource Include="Resources\dir-172.png" />
+    <EmbeddedResource Include="Resources\dir-173.png" />
+    <EmbeddedResource Include="Resources\dir-174.png" />
+    <EmbeddedResource Include="Resources\dir-175.png" />
+    <EmbeddedResource Include="Resources\dir-176.png" />
+    <EmbeddedResource Include="Resources\dir-177.png" />
+    <EmbeddedResource Include="Resources\dir-178.png" />
+    <EmbeddedResource Include="Resources\dir-179.png" />
+    <EmbeddedResource Include="Resources\dir-180.png" />
+    <EmbeddedResource Include="Resources\dir-181.png" />
+    <EmbeddedResource Include="Resources\dir-182.png" />
+    <EmbeddedResource Include="Resources\dir-183.png" />
+    <EmbeddedResource Include="Resources\dir-184.png" />
+    <EmbeddedResource Include="Resources\dir-185.png" />
+    <EmbeddedResource Include="Resources\dir-186.png" />
+    <EmbeddedResource Include="Resources\dir-187.png" />
+    <EmbeddedResource Include="Resources\dir-188.png" />
+    <EmbeddedResource Include="Resources\dir-189.png" />
+    <EmbeddedResource Include="Resources\dir-190.png" />
+    <EmbeddedResource Include="Resources\dir-191.png" />
+    <EmbeddedResource Include="Resources\dir-192.png" />
+    <EmbeddedResource Include="Resources\dir-193.png" />
+    <EmbeddedResource Include="Resources\dir-194.png" />
+    <EmbeddedResource Include="Resources\dir-195.png" />
+    <EmbeddedResource Include="Resources\dir-196.png" />
+    <EmbeddedResource Include="Resources\dir-197.png" />
+    <EmbeddedResource Include="Resources\dir-198.png" />
+    <EmbeddedResource Include="Resources\dir-199.png" />
+    <EmbeddedResource Include="Resources\dir-200.png" />
+    <EmbeddedResource Include="Resources\dir-201.png" />
+    <EmbeddedResource Include="Resources\dir-202.png" />
+    <EmbeddedResource Include="Resources\dir-203.png" />
+    <EmbeddedResource Include="Resources\dir-204.png" />
+    <EmbeddedResource Include="Resources\dir-205.png" />
+    <EmbeddedResource Include="Resources\dir-206.png" />
+    <EmbeddedResource Include="Resources\dir-207.png" />
+    <EmbeddedResource Include="Resources\dir-208.png" />
+    <EmbeddedResource Include="Resources\dir-209.png" />
+    <EmbeddedResource Include="Resources\dir-210.png" />
+    <EmbeddedResource Include="Resources\dir-211.png" />
+    <EmbeddedResource Include="Resources\dir-212.png" />
+    <EmbeddedResource Include="Resources\dir-213.png" />
+    <EmbeddedResource Include="Resources\dir-214.png" />
+    <EmbeddedResource Include="Resources\dir-215.png" />
+    <EmbeddedResource Include="Resources\dir-216.png" />
+    <EmbeddedResource Include="Resources\dir-217.png" />
+    <EmbeddedResource Include="Resources\dir-218.png" />
+    <EmbeddedResource Include="Resources\dir-219.png" />
+    <EmbeddedResource Include="Resources\dir-220.png" />
+    <EmbeddedResource Include="Resources\dir-221.png" />
+    <EmbeddedResource Include="Resources\dir-222.png" />
+    <EmbeddedResource Include="Resources\dir-223.png" />
+    <EmbeddedResource Include="Resources\dir-224.png" />
+    <EmbeddedResource Include="Resources\dir-225.png" />
+    <EmbeddedResource Include="Resources\dir-226.png" />
+    <EmbeddedResource Include="Resources\dir-227.png" />
+    <EmbeddedResource Include="Resources\dir-228.png" />
+    <EmbeddedResource Include="Resources\dir-229.png" />
+    <EmbeddedResource Include="Resources\dir-230.png" />
+    <EmbeddedResource Include="Resources\dir-231.png" />
+    <EmbeddedResource Include="Resources\dir-232.png" />
+    <EmbeddedResource Include="Resources\dir-233.png" />
+    <EmbeddedResource Include="Resources\dir-234.png" />
+    <EmbeddedResource Include="Resources\dir-235.png" />
+    <EmbeddedResource Include="Resources\dir-236.png" />
+    <EmbeddedResource Include="Resources\dir-237.png" />
+    <EmbeddedResource Include="Resources\dir-238.png" />
+    <EmbeddedResource Include="Resources\dir-239.png" />
+    <EmbeddedResource Include="Resources\dir-240.png" />
+    <EmbeddedResource Include="Resources\dir-241.png" />
+    <EmbeddedResource Include="Resources\dir-242.png" />
+    <EmbeddedResource Include="Resources\dir-243.png" />
+    <EmbeddedResource Include="Resources\dir-244.png" />
+    <EmbeddedResource Include="Resources\dir-245.png" />
+    <EmbeddedResource Include="Resources\dir-246.png" />
+    <EmbeddedResource Include="Resources\dir-247.png" />
+    <EmbeddedResource Include="Resources\dir-248.png" />
+    <EmbeddedResource Include="Resources\dir-249.png" />
+    <EmbeddedResource Include="Resources\dir-250.png" />
+    <EmbeddedResource Include="Resources\dir-251.png" />
+    <EmbeddedResource Include="Resources\dir-252.png" />
+    <EmbeddedResource Include="Resources\dir-253.png" />
+    <EmbeddedResource Include="Resources\dir-254.png" />
+    <EmbeddedResource Include="Resources\dir-255.png" />
+    <EmbeddedResource Include="Resources\dir-256.png" />
+    <EmbeddedResource Include="Resources\dir-257.png" />
+    <EmbeddedResource Include="Resources\dir-258.png" />
+    <EmbeddedResource Include="Resources\dir-259.png" />
+    <EmbeddedResource Include="Resources\dir-260.png" />
+    <EmbeddedResource Include="Resources\dir-261.png" />
+    <EmbeddedResource Include="Resources\dir-262.png" />
+    <EmbeddedResource Include="Resources\dir-263.png" />
+    <EmbeddedResource Include="Resources\dir-264.png" />
+    <EmbeddedResource Include="Resources\dir-265.png" />
+    <EmbeddedResource Include="Resources\dir-266.png" />
+    <EmbeddedResource Include="Resources\dir-267.png" />
+    <EmbeddedResource Include="Resources\dir-268.png" />
+    <EmbeddedResource Include="Resources\dir-269.png" />
+    <EmbeddedResource Include="Resources\dir-270.png" />
+    <EmbeddedResource Include="Resources\dir-271.png" />
+    <EmbeddedResource Include="Resources\dir-272.png" />
+    <EmbeddedResource Include="Resources\dir-273.png" />
+    <EmbeddedResource Include="Resources\dir-274.png" />
+    <EmbeddedResource Include="Resources\dir-275.png" />
+    <EmbeddedResource Include="Resources\dir-276.png" />
+    <EmbeddedResource Include="Resources\dir-277.png" />
+    <EmbeddedResource Include="Resources\dir-278.png" />
+    <EmbeddedResource Include="Resources\dir-279.png" />
+    <EmbeddedResource Include="Resources\dir-280.png" />
+    <EmbeddedResource Include="Resources\dir-281.png" />
+    <EmbeddedResource Include="Resources\dir-282.png" />
+    <EmbeddedResource Include="Resources\dir-283.png" />
+    <EmbeddedResource Include="Resources\dir-284.png" />
+    <EmbeddedResource Include="Resources\dir-285.png" />
+    <EmbeddedResource Include="Resources\dir-286.png" />
+    <EmbeddedResource Include="Resources\dir-287.png" />
+    <EmbeddedResource Include="Resources\dir-288.png" />
+    <EmbeddedResource Include="Resources\dir-289.png" />
+    <EmbeddedResource Include="Resources\dir-290.png" />
+    <EmbeddedResource Include="Resources\dir-291.png" />
+    <EmbeddedResource Include="Resources\dir-292.png" />
+    <EmbeddedResource Include="Resources\dir-293.png" />
+    <EmbeddedResource Include="Resources\dir-294.png" />
+    <EmbeddedResource Include="Resources\dir-295.png" />
+    <EmbeddedResource Include="Resources\dir-296.png" />
+    <EmbeddedResource Include="Resources\dir-297.png" />
+    <EmbeddedResource Include="Resources\dir-298.png" />
+    <EmbeddedResource Include="Resources\dir-299.png" />
+    <EmbeddedResource Include="Resources\dir-300.png" />
+    <EmbeddedResource Include="Resources\dir-301.png" />
+    <EmbeddedResource Include="Resources\dir-302.png" />
+    <EmbeddedResource Include="Resources\dir-303.png" />
+    <EmbeddedResource Include="Resources\dir-304.png" />
+    <EmbeddedResource Include="Resources\dir-305.png" />
+    <EmbeddedResource Include="Resources\dir-306.png" />
+    <EmbeddedResource Include="Resources\dir-307.png" />
+    <EmbeddedResource Include="Resources\dir-308.png" />
+    <EmbeddedResource Include="Resources\dir-309.png" />
+    <EmbeddedResource Include="Resources\dir-310.png" />
+    <EmbeddedResource Include="Resources\dir-311.png" />
+    <EmbeddedResource Include="Resources\dir-312.png" />
+    <EmbeddedResource Include="Resources\dir-313.png" />
+    <EmbeddedResource Include="Resources\dir-314.png" />
+    <EmbeddedResource Include="Resources\dir-315.png" />
+    <EmbeddedResource Include="Resources\dir-316.png" />
+    <EmbeddedResource Include="Resources\dir-317.png" />
+    <EmbeddedResource Include="Resources\dir-318.png" />
+    <EmbeddedResource Include="Resources\dir-319.png" />
+    <EmbeddedResource Include="Resources\dir-320.png" />
+    <EmbeddedResource Include="Resources\dir-321.png" />
+    <EmbeddedResource Include="Resources\dir-322.png" />
+    <EmbeddedResource Include="Resources\dir-323.png" />
+    <EmbeddedResource Include="Resources\dir-324.png" />
+    <EmbeddedResource Include="Resources\dir-325.png" />
+    <EmbeddedResource Include="Resources\dir-326.png" />
+    <EmbeddedResource Include="Resources\dir-327.png" />
+    <EmbeddedResource Include="Resources\dir-328.png" />
+    <EmbeddedResource Include="Resources\dir-329.png" />
+    <EmbeddedResource Include="Resources\dir-330.png" />
+    <EmbeddedResource Include="Resources\dir-331.png" />
+    <EmbeddedResource Include="Resources\dir-332.png" />
+    <EmbeddedResource Include="Resources\dir-333.png" />
+    <EmbeddedResource Include="Resources\dir-334.png" />
+    <EmbeddedResource Include="Resources\dir-335.png" />
+    <EmbeddedResource Include="Resources\dir-336.png" />
+    <EmbeddedResource Include="Resources\dir-337.png" />
+    <EmbeddedResource Include="Resources\dir-338.png" />
+    <EmbeddedResource Include="Resources\dir-339.png" />
+    <EmbeddedResource Include="Resources\dir-340.png" />
+    <EmbeddedResource Include="Resources\dir-341.png" />
+    <EmbeddedResource Include="Resources\dir-342.png" />
+    <EmbeddedResource Include="Resources\dir-343.png" />
+    <EmbeddedResource Include="Resources\dir-344.png" />
+    <EmbeddedResource Include="Resources\dir-345.png" />
+    <EmbeddedResource Include="Resources\dir-346.png" />
+    <EmbeddedResource Include="Resources\dir-347.png" />
+    <EmbeddedResource Include="Resources\dir-348.png" />
+    <EmbeddedResource Include="Resources\dir-349.png" />
+    <EmbeddedResource Include="Resources\dir-350.png" />
+    <EmbeddedResource Include="Resources\dir-351.png" />
+    <EmbeddedResource Include="Resources\dir-352.png" />
+    <EmbeddedResource Include="Resources\dir-353.png" />
+    <EmbeddedResource Include="Resources\dir-354.png" />
+    <EmbeddedResource Include="Resources\dir-355.png" />
+    <EmbeddedResource Include="Resources\dir-356.png" />
+    <EmbeddedResource Include="Resources\dir-357.png" />
+    <EmbeddedResource Include="Resources\dir-358.png" />
+    <EmbeddedResource Include="Resources\dir-359.png" />
+    <EmbeddedResource Include="SplashForm.resx">
+      <DependentUpon>SplashForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\b_013.wav" />
+    <EmbeddedResource Include="Resources\b_018.wav" />
+    <EmbeddedResource Include="Resources\b_021.wav" />
+    <EmbeddedResource Include="Resources\b_046.wav" />
+    <EmbeddedResource Include="Resources\b_067.wav" />
+    <EmbeddedResource Include="Resources\GPS.bmp" />
+    <EmbeddedResource Include="Resources\GPS-24_satellite-16.ico" />
+    <EmbeddedResource Include="Resources\compass-0.png" />
+    <EmbeddedResource Include="Resources\compass-1.png" />
+    <EmbeddedResource Include="Resources\compass-10.png" />
+    <EmbeddedResource Include="Resources\compass-100.png" />
+    <EmbeddedResource Include="Resources\compass-101.png" />
+    <EmbeddedResource Include="Resources\compass-102.png" />
+    <EmbeddedResource Include="Resources\compass-103.png" />
+    <EmbeddedResource Include="Resources\compass-104.png" />
+    <EmbeddedResource Include="Resources\compass-105.png" />
+    <EmbeddedResource Include="Resources\compass-106.png" />
+    <EmbeddedResource Include="Resources\compass-107.png" />
+    <EmbeddedResource Include="Resources\compass-108.png" />
+    <EmbeddedResource Include="Resources\compass-109.png" />
+    <EmbeddedResource Include="Resources\compass-11.png" />
+    <EmbeddedResource Include="Resources\compass-110.png" />
+    <EmbeddedResource Include="Resources\compass-111.png" />
+    <EmbeddedResource Include="Resources\compass-112.png" />
+    <EmbeddedResource Include="Resources\compass-113.png" />
+    <EmbeddedResource Include="Resources\compass-114.png" />
+    <EmbeddedResource Include="Resources\compass-115.png" />
+    <EmbeddedResource Include="Resources\compass-116.png" />
+    <EmbeddedResource Include="Resources\compass-117.png" />
+    <EmbeddedResource Include="Resources\compass-118.png" />
+    <EmbeddedResource Include="Resources\compass-119.png" />
+    <EmbeddedResource Include="Resources\compass-12.png" />
+    <EmbeddedResource Include="Resources\compass-120.png" />
+    <EmbeddedResource Include="Resources\compass-121.png" />
+    <EmbeddedResource Include="Resources\compass-122.png" />
+    <EmbeddedResource Include="Resources\compass-123.png" />
+    <EmbeddedResource Include="Resources\compass-124.png" />
+    <EmbeddedResource Include="Resources\compass-125.png" />
+    <EmbeddedResource Include="Resources\compass-126.png" />
+    <EmbeddedResource Include="Resources\compass-127.png" />
+    <EmbeddedResource Include="Resources\compass-128.png" />
+    <EmbeddedResource Include="Resources\compass-129.png" />
+    <EmbeddedResource Include="Resources\compass-13.png" />
+    <EmbeddedResource Include="Resources\compass-130.png" />
+    <EmbeddedResource Include="Resources\compass-131.png" />
+    <EmbeddedResource Include="Resources\compass-132.png" />
+    <EmbeddedResource Include="Resources\compass-133.png" />
+    <EmbeddedResource Include="Resources\compass-134.png" />
+    <EmbeddedResource Include="Resources\compass-135.png" />
+    <EmbeddedResource Include="Resources\compass-136.png" />
+    <EmbeddedResource Include="Resources\compass-137.png" />
+    <EmbeddedResource Include="Resources\compass-138.png" />
+    <EmbeddedResource Include="Resources\compass-139.png" />
+    <EmbeddedResource Include="Resources\compass-14.png" />
+    <EmbeddedResource Include="Resources\compass-140.png" />
+    <EmbeddedResource Include="Resources\compass-141.png" />
+    <EmbeddedResource Include="Resources\compass-142.png" />
+    <EmbeddedResource Include="Resources\compass-143.png" />
+    <EmbeddedResource Include="Resources\compass-144.png" />
+    <EmbeddedResource Include="Resources\compass-145.png" />
+    <EmbeddedResource Include="Resources\compass-146.png" />
+    <EmbeddedResource Include="Resources\compass-147.png" />
+    <EmbeddedResource Include="Resources\compass-148.png" />
+    <EmbeddedResource Include="Resources\compass-149.png" />
+    <EmbeddedResource Include="Resources\compass-15.png" />
+    <EmbeddedResource Include="Resources\compass-150.png" />
+    <EmbeddedResource Include="Resources\compass-151.png" />
+    <EmbeddedResource Include="Resources\compass-152.png" />
+    <EmbeddedResource Include="Resources\compass-153.png" />
+    <EmbeddedResource Include="Resources\compass-154.png" />
+    <EmbeddedResource Include="Resources\compass-155.png" />
+    <EmbeddedResource Include="Resources\compass-156.png" />
+    <EmbeddedResource Include="Resources\compass-157.png" />
+    <EmbeddedResource Include="Resources\compass-158.png" />
+    <EmbeddedResource Include="Resources\compass-159.png" />
+    <EmbeddedResource Include="Resources\compass-16.png" />
+    <EmbeddedResource Include="Resources\compass-160.png" />
+    <EmbeddedResource Include="Resources\compass-161.png" />
+    <EmbeddedResource Include="Resources\compass-162.png" />
+    <EmbeddedResource Include="Resources\compass-163.png" />
+    <EmbeddedResource Include="Resources\compass-164.png" />
+    <EmbeddedResource Include="Resources\compass-165.png" />
+    <EmbeddedResource Include="Resources\compass-166.png" />
+    <EmbeddedResource Include="Resources\compass-167.png" />
+    <EmbeddedResource Include="Resources\compass-168.png" />
+    <EmbeddedResource Include="Resources\compass-169.png" />
+    <EmbeddedResource Include="Resources\compass-17.png" />
+    <EmbeddedResource Include="Resources\compass-170.png" />
+    <EmbeddedResource Include="Resources\compass-171.png" />
+    <EmbeddedResource Include="Resources\compass-172.png" />
+    <EmbeddedResource Include="Resources\compass-173.png" />
+    <EmbeddedResource Include="Resources\compass-174.png" />
+    <EmbeddedResource Include="Resources\compass-175.png" />
+    <EmbeddedResource Include="Resources\compass-176.png" />
+    <EmbeddedResource Include="Resources\compass-177.png" />
+    <EmbeddedResource Include="Resources\compass-178.png" />
+    <EmbeddedResource Include="Resources\compass-179.png" />
+    <EmbeddedResource Include="Resources\compass-18.png" />
+    <EmbeddedResource Include="Resources\compass-180.png" />
+    <EmbeddedResource Include="Resources\compass-181.png" />
+    <EmbeddedResource Include="Resources\compass-182.png" />
+    <EmbeddedResource Include="Resources\compass-183.png" />
+    <EmbeddedResource Include="Resources\compass-184.png" />
+    <EmbeddedResource Include="Resources\compass-185.png" />
+    <EmbeddedResource Include="Resources\compass-186.png" />
+    <EmbeddedResource Include="Resources\compass-187.png" />
+    <EmbeddedResource Include="Resources\compass-188.png" />
+    <EmbeddedResource Include="Resources\compass-189.png" />
+    <EmbeddedResource Include="Resources\compass-19.png" />
+    <EmbeddedResource Include="Resources\compass-190.png" />
+    <EmbeddedResource Include="Resources\compass-191.png" />
+    <EmbeddedResource Include="Resources\compass-192.png" />
+    <EmbeddedResource Include="Resources\compass-193.png" />
+    <EmbeddedResource Include="Resources\compass-194.png" />
+    <EmbeddedResource Include="Resources\compass-195.png" />
+    <EmbeddedResource Include="Resources\compass-196.png" />
+    <EmbeddedResource Include="Resources\compass-197.png" />
+    <EmbeddedResource Include="Resources\compass-198.png" />
+    <EmbeddedResource Include="Resources\compass-199.png" />
+    <EmbeddedResource Include="Resources\compass-2.png" />
+    <EmbeddedResource Include="Resources\compass-20.png" />
+    <EmbeddedResource Include="Resources\compass-200.png" />
+    <EmbeddedResource Include="Resources\compass-201.png" />
+    <EmbeddedResource Include="Resources\compass-202.png" />
+    <EmbeddedResource Include="Resources\compass-203.png" />
+    <EmbeddedResource Include="Resources\compass-204.png" />
+    <EmbeddedResource Include="Resources\compass-205.png" />
+    <EmbeddedResource Include="Resources\compass-206.png" />
+    <EmbeddedResource Include="Resources\compass-207.png" />
+    <EmbeddedResource Include="Resources\compass-208.png" />
+    <EmbeddedResource Include="Resources\compass-209.png" />
+    <EmbeddedResource Include="Resources\compass-21.png" />
+    <EmbeddedResource Include="Resources\compass-210.png" />
+    <EmbeddedResource Include="Resources\compass-211.png" />
+    <EmbeddedResource Include="Resources\compass-212.png" />
+    <EmbeddedResource Include="Resources\compass-213.png" />
+    <EmbeddedResource Include="Resources\compass-214.png" />
+    <EmbeddedResource Include="Resources\compass-215.png" />
+    <EmbeddedResource Include="Resources\compass-216.png" />
+    <EmbeddedResource Include="Resources\compass-217.png" />
+    <EmbeddedResource Include="Resources\compass-218.png" />
+    <EmbeddedResource Include="Resources\compass-219.png" />
+    <EmbeddedResource Include="Resources\compass-22.png" />
+    <EmbeddedResource Include="Resources\compass-220.png" />
+    <EmbeddedResource Include="Resources\compass-221.png" />
+    <EmbeddedResource Include="Resources\compass-222.png" />
+    <EmbeddedResource Include="Resources\compass-223.png" />
+    <EmbeddedResource Include="Resources\compass-224.png" />
+    <EmbeddedResource Include="Resources\compass-225.png" />
+    <EmbeddedResource Include="Resources\compass-226.png" />
+    <EmbeddedResource Include="Resources\compass-227.png" />
+    <EmbeddedResource Include="Resources\compass-228.png" />
+    <EmbeddedResource Include="Resources\compass-229.png" />
+    <EmbeddedResource Include="Resources\compass-23.png" />
+    <EmbeddedResource Include="Resources\compass-230.png" />
+    <EmbeddedResource Include="Resources\compass-231.png" />
+    <EmbeddedResource Include="Resources\compass-232.png" />
+    <EmbeddedResource Include="Resources\compass-233.png" />
+    <EmbeddedResource Include="Resources\compass-234.png" />
+    <EmbeddedResource Include="Resources\compass-235.png" />
+    <EmbeddedResource Include="Resources\compass-236.png" />
+    <EmbeddedResource Include="Resources\compass-237.png" />
+    <EmbeddedResource Include="Resources\compass-238.png" />
+    <EmbeddedResource Include="Resources\compass-239.png" />
+    <EmbeddedResource Include="Resources\compass-24.png" />
+    <EmbeddedResource Include="Resources\compass-240.png" />
+    <EmbeddedResource Include="Resources\compass-241.png" />
+    <EmbeddedResource Include="Resources\compass-242.png" />
+    <EmbeddedResource Include="Resources\compass-243.png" />
+    <EmbeddedResource Include="Resources\compass-244.png" />
+    <EmbeddedResource Include="Resources\compass-245.png" />
+    <EmbeddedResource Include="Resources\compass-246.png" />
+    <EmbeddedResource Include="Resources\compass-247.png" />
+    <EmbeddedResource Include="Resources\compass-248.png" />
+    <EmbeddedResource Include="Resources\compass-249.png" />
+    <EmbeddedResource Include="Resources\compass-25.png" />
+    <EmbeddedResource Include="Resources\compass-250.png" />
+    <EmbeddedResource Include="Resources\compass-251.png" />
+    <EmbeddedResource Include="Resources\compass-252.png" />
+    <EmbeddedResource Include="Resources\compass-253.png" />
+    <EmbeddedResource Include="Resources\compass-254.png" />
+    <EmbeddedResource Include="Resources\compass-255.png" />
+    <EmbeddedResource Include="Resources\compass-256.png" />
+    <EmbeddedResource Include="Resources\compass-257.png" />
+    <EmbeddedResource Include="Resources\compass-258.png" />
+    <EmbeddedResource Include="Resources\compass-259.png" />
+    <EmbeddedResource Include="Resources\compass-26.png" />
+    <EmbeddedResource Include="Resources\compass-260.png" />
+    <EmbeddedResource Include="Resources\compass-261.png" />
+    <EmbeddedResource Include="Resources\compass-262.png" />
+    <EmbeddedResource Include="Resources\compass-263.png" />
+    <EmbeddedResource Include="Resources\compass-264.png" />
+    <EmbeddedResource Include="Resources\compass-265.png" />
+    <EmbeddedResource Include="Resources\compass-266.png" />
+    <EmbeddedResource Include="Resources\compass-267.png" />
+    <EmbeddedResource Include="Resources\compass-268.png" />
+    <EmbeddedResource Include="Resources\compass-269.png" />
+    <EmbeddedResource Include="Resources\compass-27.png" />
+    <EmbeddedResource Include="Resources\compass-270.png" />
+    <EmbeddedResource Include="Resources\compass-271.png" />
+    <EmbeddedResource Include="Resources\compass-272.png" />
+    <EmbeddedResource Include="Resources\compass-273.png" />
+    <EmbeddedResource Include="Resources\compass-274.png" />
+    <EmbeddedResource Include="Resources\compass-275.png" />
+    <EmbeddedResource Include="Resources\compass-276.png" />
+    <EmbeddedResource Include="Resources\compass-277.png" />
+    <EmbeddedResource Include="Resources\compass-278.png" />
+    <EmbeddedResource Include="Resources\compass-279.png" />
+    <EmbeddedResource Include="Resources\compass-28.png" />
+    <EmbeddedResource Include="Resources\compass-280.png" />
+    <EmbeddedResource Include="Resources\compass-281.png" />
+    <EmbeddedResource Include="Resources\compass-282.png" />
+    <EmbeddedResource Include="Resources\compass-283.png" />
+    <EmbeddedResource Include="Resources\compass-284.png" />
+    <EmbeddedResource Include="Resources\compass-285.png" />
+    <EmbeddedResource Include="Resources\compass-286.png" />
+    <EmbeddedResource Include="Resources\compass-287.png" />
+    <EmbeddedResource Include="Resources\compass-288.png" />
+    <EmbeddedResource Include="Resources\compass-289.png" />
+    <EmbeddedResource Include="Resources\compass-29.png" />
+    <EmbeddedResource Include="Resources\compass-290.png" />
+    <EmbeddedResource Include="Resources\compass-291.png" />
+    <EmbeddedResource Include="Resources\compass-292.png" />
+    <EmbeddedResource Include="Resources\compass-293.png" />
+    <EmbeddedResource Include="Resources\compass-294.png" />
+    <EmbeddedResource Include="Resources\compass-295.png" />
+    <EmbeddedResource Include="Resources\compass-296.png" />
+    <EmbeddedResource Include="Resources\compass-297.png" />
+    <EmbeddedResource Include="Resources\compass-298.png" />
+    <EmbeddedResource Include="Resources\compass-299.png" />
+    <EmbeddedResource Include="Resources\compass-3.png" />
+    <EmbeddedResource Include="Resources\compass-30.png" />
+    <EmbeddedResource Include="Resources\compass-300.png" />
+    <EmbeddedResource Include="Resources\compass-301.png" />
+    <EmbeddedResource Include="Resources\compass-302.png" />
+    <EmbeddedResource Include="Resources\compass-303.png" />
+    <EmbeddedResource Include="Resources\compass-304.png" />
+    <EmbeddedResource Include="Resources\compass-305.png" />
+    <EmbeddedResource Include="Resources\compass-306.png" />
+    <EmbeddedResource Include="Resources\compass-307.png" />
+    <EmbeddedResource Include="Resources\compass-308.png" />
+    <EmbeddedResource Include="Resources\compass-309.png" />
+    <EmbeddedResource Include="Resources\compass-31.png" />
+    <EmbeddedResource Include="Resources\compass-310.png" />
+    <EmbeddedResource Include="Resources\compass-311.png" />
+    <EmbeddedResource Include="Resources\compass-312.png" />
+    <EmbeddedResource Include="Resources\compass-313.png" />
+    <EmbeddedResource Include="Resources\compass-314.png" />
+    <EmbeddedResource Include="Resources\compass-315.png" />
+    <EmbeddedResource Include="Resources\compass-316.png" />
+    <EmbeddedResource Include="Resources\compass-317.png" />
+    <EmbeddedResource Include="Resources\compass-318.png" />
+    <EmbeddedResource Include="Resources\compass-319.png" />
+    <EmbeddedResource Include="Resources\compass-32.png" />
+    <EmbeddedResource Include="Resources\compass-320.png" />
+    <EmbeddedResource Include="Resources\compass-321.png" />
+    <EmbeddedResource Include="Resources\compass-322.png" />
+    <EmbeddedResource Include="Resources\compass-323.png" />
+    <EmbeddedResource Include="Resources\compass-324.png" />
+    <EmbeddedResource Include="Resources\compass-325.png" />
+    <EmbeddedResource Include="Resources\compass-326.png" />
+    <EmbeddedResource Include="Resources\compass-327.png" />
+    <EmbeddedResource Include="Resources\compass-328.png" />
+    <EmbeddedResource Include="Resources\compass-329.png" />
+    <EmbeddedResource Include="Resources\compass-33.png" />
+    <EmbeddedResource Include="Resources\compass-330.png" />
+    <EmbeddedResource Include="Resources\compass-331.png" />
+    <EmbeddedResource Include="Resources\compass-332.png" />
+    <EmbeddedResource Include="Resources\compass-333.png" />
+    <EmbeddedResource Include="Resources\compass-334.png" />
+    <EmbeddedResource Include="Resources\compass-335.png" />
+    <EmbeddedResource Include="Resources\compass-336.png" />
+    <EmbeddedResource Include="Resources\compass-337.png" />
+    <EmbeddedResource Include="Resources\compass-338.png" />
+    <EmbeddedResource Include="Resources\compass-339.png" />
+    <EmbeddedResource Include="Resources\compass-34.png" />
+    <EmbeddedResource Include="Resources\compass-340.png" />
+    <EmbeddedResource Include="Resources\compass-341.png" />
+    <EmbeddedResource Include="Resources\compass-342.png" />
+    <EmbeddedResource Include="Resources\compass-343.png" />
+    <EmbeddedResource Include="Resources\compass-344.png" />
+    <EmbeddedResource Include="Resources\compass-345.png" />
+    <EmbeddedResource Include="Resources\compass-346.png" />
+    <EmbeddedResource Include="Resources\compass-347.png" />
+    <EmbeddedResource Include="Resources\compass-348.png" />
+    <EmbeddedResource Include="Resources\compass-349.png" />
+    <EmbeddedResource Include="Resources\compass-35.png" />
+    <EmbeddedResource Include="Resources\compass-350.png" />
+    <EmbeddedResource Include="Resources\compass-351.png" />
+    <EmbeddedResource Include="Resources\compass-352.png" />
+    <EmbeddedResource Include="Resources\compass-353.png" />
+    <EmbeddedResource Include="Resources\compass-354.png" />
+    <EmbeddedResource Include="Resources\compass-355.png" />
+    <EmbeddedResource Include="Resources\compass-356.png" />
+    <EmbeddedResource Include="Resources\compass-357.png" />
+    <EmbeddedResource Include="Resources\compass-358.png" />
+    <EmbeddedResource Include="Resources\compass-359.png" />
+    <EmbeddedResource Include="Resources\compass-36.png" />
+    <EmbeddedResource Include="Resources\compass-37.png" />
+    <EmbeddedResource Include="Resources\compass-38.png" />
+    <EmbeddedResource Include="Resources\compass-39.png" />
+    <EmbeddedResource Include="Resources\compass-4.png" />
+    <EmbeddedResource Include="Resources\compass-40.png" />
+    <EmbeddedResource Include="Resources\compass-41.png" />
+    <EmbeddedResource Include="Resources\compass-42.png" />
+    <EmbeddedResource Include="Resources\compass-43.png" />
+    <EmbeddedResource Include="Resources\compass-44.png" />
+    <EmbeddedResource Include="Resources\compass-45.png" />
+    <EmbeddedResource Include="Resources\compass-46.png" />
+    <EmbeddedResource Include="Resources\compass-47.png" />
+    <EmbeddedResource Include="Resources\compass-48.png" />
+    <EmbeddedResource Include="Resources\compass-49.png" />
+    <EmbeddedResource Include="Resources\compass-5.png" />
+    <EmbeddedResource Include="Resources\compass-50.png" />
+    <EmbeddedResource Include="Resources\compass-51.png" />
+    <EmbeddedResource Include="Resources\compass-52.png" />
+    <EmbeddedResource Include="Resources\compass-53.png" />
+    <EmbeddedResource Include="Resources\compass-54.png" />
+    <EmbeddedResource Include="Resources\compass-55.png" />
+    <EmbeddedResource Include="Resources\compass-56.png" />
+    <EmbeddedResource Include="Resources\compass-57.png" />
+    <EmbeddedResource Include="Resources\compass-58.png" />
+    <EmbeddedResource Include="Resources\compass-59.png" />
+    <EmbeddedResource Include="Resources\compass-6.png" />
+    <EmbeddedResource Include="Resources\compass-60.png" />
+    <EmbeddedResource Include="Resources\compass-61.png" />
+    <EmbeddedResource Include="Resources\compass-62.png" />
+    <EmbeddedResource Include="Resources\compass-63.png" />
+    <EmbeddedResource Include="Resources\compass-64.png" />
+    <EmbeddedResource Include="Resources\compass-65.png" />
+    <EmbeddedResource Include="Resources\compass-66.png" />
+    <EmbeddedResource Include="Resources\compass-67.png" />
+    <EmbeddedResource Include="Resources\compass-68.png" />
+    <EmbeddedResource Include="Resources\compass-69.png" />
+    <EmbeddedResource Include="Resources\compass-7.png" />
+    <EmbeddedResource Include="Resources\compass-70.png" />
+    <EmbeddedResource Include="Resources\compass-71.png" />
+    <EmbeddedResource Include="Resources\compass-72.png" />
+    <EmbeddedResource Include="Resources\compass-73.png" />
+    <EmbeddedResource Include="Resources\compass-74.png" />
+    <EmbeddedResource Include="Resources\compass-75.png" />
+    <EmbeddedResource Include="Resources\compass-76.png" />
+    <EmbeddedResource Include="Resources\compass-77.png" />
+    <EmbeddedResource Include="Resources\compass-78.png" />
+    <EmbeddedResource Include="Resources\compass-79.png" />
+    <EmbeddedResource Include="Resources\compass-8.png" />
+    <EmbeddedResource Include="Resources\compass-80.png" />
+    <EmbeddedResource Include="Resources\compass-81.png" />
+    <EmbeddedResource Include="Resources\compass-82.png" />
+    <EmbeddedResource Include="Resources\compass-83.png" />
+    <EmbeddedResource Include="Resources\compass-84.png" />
+    <EmbeddedResource Include="Resources\compass-85.png" />
+    <EmbeddedResource Include="Resources\compass-86.png" />
+    <EmbeddedResource Include="Resources\compass-87.png" />
+    <EmbeddedResource Include="Resources\compass-88.png" />
+    <EmbeddedResource Include="Resources\compass-89.png" />
+    <EmbeddedResource Include="Resources\compass-9.png" />
+    <EmbeddedResource Include="Resources\compass-90.png" />
+    <EmbeddedResource Include="Resources\compass-91.png" />
+    <EmbeddedResource Include="Resources\compass-92.png" />
+    <EmbeddedResource Include="Resources\compass-93.png" />
+    <EmbeddedResource Include="Resources\compass-94.png" />
+    <EmbeddedResource Include="Resources\compass-95.png" />
+    <EmbeddedResource Include="Resources\compass-96.png" />
+    <EmbeddedResource Include="Resources\compass-97.png" />
+    <EmbeddedResource Include="Resources\compass-98.png" />
+    <EmbeddedResource Include="Resources\compass-99.png" />
+    <EmbeddedResource Include="EnableGeoTaggingDialog.resx">
+      <DependentUpon>EnableGeoTaggingDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xAuthForm.resx">
+      <DependentUpon>xAuthForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Plugin\EbiSoft.Library.PluginFramework.dll">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="crossdomain.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
