@@ -7,6 +7,7 @@ using System.IO;
 using System.Xml;
 
 using PCGPS.OAuth;
+using Newtonsoft.Json;
 
 namespace PCGPS.Manager
 {
@@ -15,7 +16,7 @@ namespace PCGPS.Manager
         public static string Tweet(string status, GPSTrackPoint location)
         {
             string result;
-            string url = "http://twitter.com/statuses/update.xml";
+            string url = "https://api.twitter.com/1.1/statuses/update.json";
 
             Dictionary<string, string> postData = new Dictionary<string, string>();
             //postData.Add("status", Util.URLEncode(status));
@@ -77,7 +78,7 @@ namespace PCGPS.Manager
         public static bool GeoEnabled()
         {
             bool result = false;
-            string url = "http://twitter.com/account/verify_credentials.xml";
+            string url = "https://api.twitter.com/1.1/account/verify_credentials.json";
 
             Dictionary<string, string> headers = TwitterOAuth.getInstance().createOAuthHeader("GET", url, new Dictionary<string, string>());
             
@@ -95,8 +96,9 @@ namespace PCGPS.Manager
             }
 
             using (WebResponse response = request.GetResponse())
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            using (JsonTextReader reader = new JsonTextReader(new StreamReader(response.GetResponseStream())))
             {
+                /*
                 string r = reader.ReadToEnd();
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(r);
@@ -106,6 +108,20 @@ namespace PCGPS.Manager
                     XmlNode node = list[0];
                     result = bool.Parse(node.InnerText);
                 }
+                 */
+                while (reader.Read())
+                {
+                    if (reader.Value != null)
+                    {
+                        if (reader.TokenType == JsonToken.PropertyName && reader.Value.ToString() == "geo_enabled")
+                        {
+                            reader.Read();
+                            result = (Boolean)reader.Value;
+                        }
+                    }
+                }
+                
+
             }
             return result;
         }
