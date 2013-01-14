@@ -1,12 +1,21 @@
 macocoNow改
 
+・更新記録
+2013.1.14
+Location API に対応。GPSを接続したシリアルポートに、APIという名前で、
+Location APIを選択可能にしました。それに合わせて、フレームワークを.net 4に
+変更。Jsonのdllも変更しました。また、最新版 Version 2.0.3.47 の内容を
+取り込みました・
+
+
+・概要
 FLASHに対して、速度や座標をTCP/IPで送る機能と、Taxiの料金を内部で計算し、
 TaxiMeter2.swfに送る機能を持っています。
 
 ダウンロード
 http://www43.atwiki.jp/kazenif/pub/Imacoco_kai.zip
 
-インストール
+・インストール
 既存のImacocoNowに上書きする形でインストールします。
 元のImacocoNowクライアントも残したい場合は、ImacocoNowクライアントのディ
 レクトリを丸ごとコピーして、コピーしたディレクトリに上記のzipファイルの
