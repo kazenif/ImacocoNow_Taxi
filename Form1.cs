@@ -25,6 +25,10 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Linq;
 using System.Xml;
 
+// Location API
+using System.Device.Location;
+
+
 namespace PCGPS
 {
     public partial class Form1 : Form
@@ -143,6 +147,10 @@ namespace PCGPS
 
         bool nmea_received = false;
         bool mode_initial = true;
+
+        // Location API is selected flag
+        bool location_api_used = false;
+        GeoCoordinateWatcher LocationAPI_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
 
         GPSTrackPoint lastPosition;
         GPSTrackPoint lastValidPosition = null;
@@ -1100,6 +1108,61 @@ namespace PCGPS
 
         #endregion
 
+        #region Location API
+        // Position を $GPGGA フォーマットに直して、nmeaQueue に加える
+        private void EnqueueLocation(GeoPosition<GeoCoordinate> pos)
+        {
+            if (!pos.Location.IsUnknown)
+            {
+                string sentence;
+                double lat = pos.Location.Latitude; ;
+                double lat_abs = Math.Abs(lat); ;
+                double lat_m = (lat_abs - Math.Truncate(lat_abs)) * 60.0f;
+                double lon = pos.Location.Longitude;
+                double lon_abs = Math.Abs(lon); ;
+                double lon_m = (lon_abs - Math.Truncate(lon_abs)) * 60.0f; ;
+
+                sentence = ("$GPGGA," +
+                    pos.Timestamp.Hour.ToString("00") + pos.Timestamp.Minute.ToString("00") + pos.Timestamp.Second.ToString("00") + "." + pos.Timestamp.Millisecond.ToString("000") + "," +
+                    ((int)Math.Truncate(lat_abs)).ToString("00") + lat_m.ToString("00.0000") + "," + (lat > 0 ? "N" : "S") + "," +
+                    ((int)Math.Truncate(lon_abs)).ToString("000") + lon_m.ToString("00.0000") + "," + (lon > 0 ? "E" : "W") + "," +
+                    "1,5,00.00," +
+                    pos.Location.Altitude.ToString("0.0") + ",M," +
+                    pos.Location.Altitude.ToString("0.0") + ",M,,*");
+                sentence = sentence + Util.GetChecksum(sentence);
+
+                lock (nmeaQueue)
+                {
+                    nmeaQueue.Enqueue(sentence);
+                    autoEvent.Set();
+                }
+
+                sentence = ("$GPRMC,"+
+                    pos.Timestamp.Hour.ToString("00") + pos.Timestamp.Minute.ToString("00") + pos.Timestamp.Second.ToString("00") + "." + pos.Timestamp.Millisecond.ToString("000") + "," +
+                    "A,"+
+                    ((int)Math.Truncate(lat_abs)).ToString("00") + lat_m.ToString("00.0000") + "," + (lat > 0 ? "N" : "S") + "," +
+                    ((int)Math.Truncate(lon_abs)).ToString("000") + lon_m.ToString("00.0000") + "," + (lon > 0 ? "E" : "W") + "," +
+                    (0.514444f*pos.Location.Speed).ToString("0.000")+","+
+                    pos.Location.Course.ToString("000.0")+","+
+                    pos.Timestamp.Day.ToString("dd")+pos.Timestamp.Month.ToString("MM")+pos.Timestamp.Year.ToString("yy")+","+
+                    ",,A*");
+
+                sentence = sentence + Util.GetChecksum(sentence);
+
+                lock (nmeaQueue)
+                {
+                    nmeaQueue.Enqueue(sentence);
+                    autoEvent.Set();
+                }
+            }
+        }
+
+        // Location API で場所が変化したときのハンドラ
+        private void LocationAPI_watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        {
+            EnqueueLocation(e.Position);
+        }
+
         #region ボタン
         //手動Postボタン
         private void btnFTPPost_Click(object sender, EventArgs e)
@@ -1110,42 +1173,60 @@ namespace PCGPS
             }
            
         }
+        #endregion
 
         private void CommOpen()
         {
-            serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            if (Properties.Settings.Default.ReceiveMode == "Timer")
-            {
-                mode_initial = false;
-                timer1.Interval = ReceiveTimerInterval;
-            }
-            else
-            {
-                mode_initial = true;
-                timer1.Interval = 5000;
-            }
-            timer1.Enabled = true;
-
             //ログ保存チェックされていたら
             if (chkSaveLog.Checked)
             {
                 OpenLogFile();
             }
+            if (cbSerial.Text.CompareTo("API") != 0)
+            {
+                // Serial Port を使用する
+                location_api_used = false;
 
-            //ポート設定
-            serialPort1.PortName = cbSerial.Text;
-            SetStatusText("SerialPort: " + cbSerial.Text);
+                serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+                if (Properties.Settings.Default.ReceiveMode == "Timer")
+                {
+                    mode_initial = false;
+                    timer1.Interval = ReceiveTimerInterval;
+                }
+                else
+                {
+                    mode_initial = true;
+                    timer1.Interval = 5000;
+                }
+                timer1.Enabled = true;
 
-            int Baudrate;
-            //通信速度を文字列から整数に変換
-            int.TryParse(cbBaud.Text, out Baudrate);
-            SetStatusText(cbBaud.Text + "bps");
+                //ポート設定
+                serialPort1.PortName = cbSerial.Text;
+                SetStatusText("SerialPort: " + cbSerial.Text);
 
-            //通信速度設定
-            serialPort1.BaudRate = Baudrate;
-            //接続
-            serialPort1.Open();
-            serialPort1.DiscardInBuffer();
+                int Baudrate;
+                //通信速度を文字列から整数に変換
+                int.TryParse(cbBaud.Text, out Baudrate);
+                SetStatusText(cbBaud.Text + "bps");
+
+                //通信速度設定
+                serialPort1.BaudRate = Baudrate;
+                //接続
+                serialPort1.Open();
+                serialPort1.DiscardInBuffer();
+            }
+            else
+            {
+                // Location API を使用する
+                location_api_used = true;
+
+                // ロケーションサービスへのイベント追加
+                LocationAPI_watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(LocationAPI_watcher_PositionChanged);
+
+                // ロケーションサービスへアクセス開始
+                LocationAPI_watcher.Start();
+
+            }
 
             // ボタンやチェックボックスの状態を設定
             btnFTPPost.Enabled = true;
@@ -1168,16 +1249,32 @@ namespace PCGPS
 
         private void CommClose()
         {
-            timer1.Enabled = false;
-            try
-            {
-                serialPort1.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            }
-            catch (Exception /*e*/)
-            {
-            }
             CloseLogFile();
-            serialPort1.Close();
+
+            if (!location_api_used)
+            {
+                timer1.Enabled = false;
+                try
+                {
+                    serialPort1.DataReceived -= new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+                }
+                catch (Exception /*e*/)
+                {
+                }
+                serialPort1.Close();
+            }
+            else
+            {
+                // ロケーションサービスへのイベント削除
+                LocationAPI_watcher.PositionChanged -= new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(LocationAPI_watcher_PositionChanged);
+
+                // ロケーションサービスへアクセス停止
+                LocationAPI_watcher.Stop();
+
+                // ロケーションサービス停止
+                location_api_used = false;
+            }
+
             btnFTPPost.Enabled = false;
             btnNoPostArea.Enabled = false;
             lblIndicator.ForeColor = Color.Red;
@@ -1411,7 +1508,7 @@ namespace PCGPS
             lblCopyright.Text = appCopyright;
             lblVersion.Text = "Version " + appVersion;
 
-            version = "ImacocoNow/" + appVersion + " .NET Framework 2.0";
+            version = "ImacocoNow/" + appVersion + " .NET Framework 4.0";
             ImacocoNowManager.version = version;
 
             noPostPoint = new List<GPSPoint>();
@@ -1426,6 +1523,9 @@ namespace PCGPS
                     cbSerial.Items.Add(port);
                 }
             }
+            // Location API をポートとしてリストアップ
+            cbSerial.Items.Add("API");
+
             rnd = new Random();
 
             loadSettings();
@@ -2134,7 +2234,7 @@ namespace PCGPS
                 txtDistance.Text = txtDistance2.Text = string.Format("{0:F1}", distance);
                 txtAcc.Text = string.Format("{0:F3}", acc);
 
-                if (!serialPort1.IsOpen)
+                if (!serialPort1.IsOpen && !location_api_used)
                 {
                     lblIndicator.ForeColor = Color.Red;
                     btnFTPPost.Enabled = false;
