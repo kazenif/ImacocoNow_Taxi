@@ -41,27 +41,30 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 40);
+            this.label1.Location = new System.Drawing.Point(16, 50);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
+            this.label1.Size = new System.Drawing.Size(37, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "緯度";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 65);
+            this.label2.Location = new System.Drawing.Point(16, 81);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 12);
+            this.label2.Size = new System.Drawing.Size(37, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "経度";
             // 
             // btnFm2Cancel
             // 
             this.btnFm2Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnFm2Cancel.Location = new System.Drawing.Point(104, 89);
+            this.btnFm2Cancel.Location = new System.Drawing.Point(139, 111);
+            this.btnFm2Cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnFm2Cancel.Name = "btnFm2Cancel";
-            this.btnFm2Cancel.Size = new System.Drawing.Size(55, 26);
+            this.btnFm2Cancel.Size = new System.Drawing.Size(73, 32);
             this.btnFm2Cancel.TabIndex = 2;
             this.btnFm2Cancel.Text = "Cancel";
             this.btnFm2Cancel.UseVisualStyleBackColor = true;
@@ -70,51 +73,56 @@
             // 
             this.btnFm2OK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnFm2OK.Enabled = false;
-            this.btnFm2OK.Location = new System.Drawing.Point(165, 89);
+            this.btnFm2OK.Location = new System.Drawing.Point(220, 111);
+            this.btnFm2OK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnFm2OK.Name = "btnFm2OK";
-            this.btnFm2OK.Size = new System.Drawing.Size(55, 26);
+            this.btnFm2OK.Size = new System.Drawing.Size(73, 32);
             this.btnFm2OK.TabIndex = 3;
             this.btnFm2OK.Text = "OK";
             this.btnFm2OK.UseVisualStyleBackColor = true;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(58, 37);
+            this.textBox1.Location = new System.Drawing.Point(77, 46);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(161, 19);
+            this.textBox1.Size = new System.Drawing.Size(213, 22);
             this.textBox1.TabIndex = 4;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(58, 62);
+            this.textBox2.Location = new System.Drawing.Point(77, 78);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(162, 19);
+            this.textBox2.Size = new System.Drawing.Size(215, 22);
             this.textBox2.TabIndex = 5;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 15);
+            this.label3.Location = new System.Drawing.Point(16, 19);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.Size = new System.Drawing.Size(37, 15);
             this.label3.TabIndex = 6;
             this.label3.Text = "名称";
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(58, 12);
+            this.textBox3.Location = new System.Drawing.Point(77, 15);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(162, 19);
+            this.textBox3.Size = new System.Drawing.Size(215, 22);
             this.textBox3.TabIndex = 7;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(238, 124);
+            this.ClientSize = new System.Drawing.Size(317, 169);
             this.ControlBox = false;
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);
@@ -125,6 +133,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form2";
             this.Text = "非送信エリア";
             this.ResumeLayout(false);

@@ -151,6 +151,7 @@ namespace PCGPS
         // Location API is selected flag
         bool location_api_used = false;
         GeoCoordinateWatcher LocationAPI_watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.Default);
+        int location_drop_count = 3;
 
         GPSTrackPoint lastPosition;
         GPSTrackPoint lastValidPosition = null;
@@ -1114,7 +1115,8 @@ namespace PCGPS
         {
             if (!pos.Location.IsUnknown)
             {
-                string sentence;
+                string sentence1;
+                string sentence2;
                 double lat = pos.Location.Latitude; ;
                 double lat_abs = Math.Abs(lat); ;
                 double lat_m = (lat_abs - Math.Truncate(lat_abs)) * 60.0f;
@@ -1122,36 +1124,31 @@ namespace PCGPS
                 double lon_abs = Math.Abs(lon); ;
                 double lon_m = (lon_abs - Math.Truncate(lon_abs)) * 60.0f; ;
 
-                sentence = ("$GPGGA," +
+                sentence1 = ("$GPGGA," +
                     pos.Timestamp.Hour.ToString("00") + pos.Timestamp.Minute.ToString("00") + pos.Timestamp.Second.ToString("00") + "." + pos.Timestamp.Millisecond.ToString("000") + "," +
                     ((int)Math.Truncate(lat_abs)).ToString("00") + lat_m.ToString("00.0000") + "," + (lat > 0 ? "N" : "S") + "," +
                     ((int)Math.Truncate(lon_abs)).ToString("000") + lon_m.ToString("00.0000") + "," + (lon > 0 ? "E" : "W") + "," +
                     "1,5,00.00," +
                     pos.Location.Altitude.ToString("0.0") + ",M," +
                     pos.Location.Altitude.ToString("0.0") + ",M,,*");
-                sentence = sentence + Util.GetChecksum(sentence);
+                sentence1 = sentence1 + Util.GetChecksum(sentence1);
 
-                lock (nmeaQueue)
-                {
-                    nmeaQueue.Enqueue(sentence);
-                    autoEvent.Set();
-                }
-
-                sentence = ("$GPRMC,"+
+                sentence2 = ("$GPRMC,"+
                     pos.Timestamp.Hour.ToString("00") + pos.Timestamp.Minute.ToString("00") + pos.Timestamp.Second.ToString("00") + "." + pos.Timestamp.Millisecond.ToString("000") + "," +
                     "A,"+
                     ((int)Math.Truncate(lat_abs)).ToString("00") + lat_m.ToString("00.0000") + "," + (lat > 0 ? "N" : "S") + "," +
                     ((int)Math.Truncate(lon_abs)).ToString("000") + lon_m.ToString("00.0000") + "," + (lon > 0 ? "E" : "W") + "," +
-                    (0.514444f*pos.Location.Speed).ToString("0.000")+","+
-                    pos.Location.Course.ToString("000.0")+","+
-                    pos.Timestamp.Day.ToString("dd")+pos.Timestamp.Month.ToString("MM")+pos.Timestamp.Year.ToString("yy")+","+
+                    (Double.IsNaN(pos.Location.Speed)?"0.0":(0.514444f*pos.Location.Speed).ToString("0.000"))+","+
+                    (Double.IsNaN(pos.Location.Course)?"000.0":pos.Location.Course.ToString("000.0"))+","+
+                    pos.Timestamp.Day.ToString("00")+pos.Timestamp.Month.ToString("00")+(pos.Timestamp.Year%100).ToString("00")+","+
                     ",,A*");
 
-                sentence = sentence + Util.GetChecksum(sentence);
+                sentence2 = sentence2 + Util.GetChecksum(sentence2);
 
                 lock (nmeaQueue)
                 {
-                    nmeaQueue.Enqueue(sentence);
+                    nmeaQueue.Enqueue(sentence1);
+                    nmeaQueue.Enqueue(sentence2);
                     autoEvent.Set();
                 }
             }
@@ -1160,7 +1157,14 @@ namespace PCGPS
         // Location API で場所が変化したときのハンドラ
         private void LocationAPI_watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-            EnqueueLocation(e.Position);
+            if (location_drop_count > 0)
+            {
+                location_drop_count--;
+            }
+            else
+            {
+                EnqueueLocation(e.Position);
+            }
         }
 
         #region ボタン
@@ -1219,6 +1223,9 @@ namespace PCGPS
             {
                 // Location API を使用する
                 location_api_used = true;
+
+                // 最初の５点は捨てる
+                location_drop_count = 5;
 
                 // ロケーションサービスへのイベント追加
                 LocationAPI_watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(LocationAPI_watcher_PositionChanged);
